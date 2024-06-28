@@ -1,35 +1,35 @@
 from flask import Flask, render_template, request
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+# from sqlalchemy import create_engine, Column, Integer, String
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.orm import sessionmaker
 import math
 
 # creating a flask app..
 app = Flask(__name__) 
 
 # Database
-engine = create_engine('sqlite:///database.db')  # Type of database
-Base = declarative_base()
+# engine = create_engine('sqlite:///database.db')  # Type of database
+# Base = declarative_base()
 
 # a model with
-class PerfectSquares(Base):
-    __tablename__ = 'perfect_squares'
+# class PerfectSquares(Base):
+#     __tablename__ = 'perfect_squares'
 
-    id = Column(Integer, primary_key=True)
-    lower_bound = Column(Integer)
-    upper_bound = Column(Integer)
-    perfect_squares_list = Column(String)  # Comma-separated perfect squares
-    non_perfect_squares_list = Column(String)  # Comma-separated non-perfect squares
+#     id = Column(Integer, primary_key=True)
+#     lower_bound = Column(Integer)
+#     upper_bound = Column(Integer)
+#     perfect_squares_list = Column(String)  # Comma-separated perfect squares
+#     non_perfect_squares_list = Column(String)  # Comma-separated non-perfect squares
 
-    def __repr__(self):
-        return f"<PerfectSquares(id={self.id}, lower_bound={self.lower_bound}, upper_bound={self.upper_bound}, perfect_squares='{self.perfect_squares_list}', non_perfect_squares='{self.non_perfect_squares_list}')>"
+#     def __repr__(self):
+#         return f"<PerfectSquares(id={self.id}, lower_bound={self.lower_bound}, upper_bound={self.upper_bound}, perfect_squares='{self.perfect_squares_list}', non_perfect_squares='{self.non_perfect_squares_list}')>"
 
-# Create database tables (if using the model)
-Base.metadata.create_all(engine)
+# # Create database tables (if using the model)
+# Base.metadata.create_all(engine)
 
-# Database session
-Session = sessionmaker(bind=engine)
-session = Session()
+# # Database session
+# Session = sessionmaker(bind=engine)
+# session = Session()
 
 
 # Function to check if a number is a perfect square
@@ -58,11 +58,11 @@ def index():
         perfect_squares, non_perfect_squares = find_perfect_squares(lower_bound, upper_bound)
 
         # Optionally, store data in the database
-        new_record = PerfectSquares(lower_bound=lower_bound, upper_bound=upper_bound,
-                                    perfect_squares_list=','.join(map(str, perfect_squares)),
-                                    non_perfect_squares_list=','.join(map(str, non_perfect_squares)))
-        session.add(new_record)
-        session.commit()
+        # new_record = PerfectSquares(lower_bound=lower_bound, upper_bound=upper_bound,
+        #                             perfect_squares_list=','.join(map(str, perfect_squares)),
+        #                             non_perfect_squares_list=','.join(map(str, non_perfect_squares)))
+        # session.add(new_record)
+        # session.commit()
 
         return render_template('index.html', perfect_squares=perfect_squares,
                                 non_perfect_squares=non_perfect_squares, lower_bound=lower_bound, upper_bound=upper_bound)
