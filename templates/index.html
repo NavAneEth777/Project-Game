@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perfect Squares Finder</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <h1>Perfect Squares Finder</h1>
+    <form method="POST">
+        <label for="lower_bound">Lower Bound:</label>
+        <input type="number" name="lower_bound" id="lower_bound" required>
+        <br>
+        <label for="upper_bound">Upper Bound:</label>
+        <input type="number" name="upper_bound" id="upper_bound" required>
+        <br>
+        <input type="submit" value="Find Perfect Squares">
+    </form>
+
+    {% if perfect_squares %}
+        <h2>Perfect Squares between {{ lower_bound }} and {{ upper_bound }} <br>(Open Gates)</h2>
+        <ul>
+            {% for square in perfect_squares %}
+                <li>{{ square }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if non_perfect_squares %}
+        <h2>Non Perfect Squares between {{ lower_bound }} and {{ upper_bound }} <br>(Closed Gates)</h2>
+        <ul>
+            {% for square in non_perfect_squares %}
+                <li>{{ square }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
